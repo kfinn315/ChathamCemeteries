@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Project.Core.Entities;
-using Project.Core.Interfaces;
+using Project.Core.Entities.Business;
+using Project.Core.Interfaces.IRepositories;
+using Project.Core.Interfaces.IServices;
 
 namespace Project.API.Controllers;
 
@@ -10,17 +11,17 @@ namespace Project.API.Controllers;
 public class CemeteryController : ControllerBase
 {
     private readonly ILogger<CemeteryController> _logger;
-    private readonly ICemeteryRepository cemeteryRepository;
+    private readonly ICemeteryService cemeteryService;
 
-    public CemeteryController(ILogger<CemeteryController> logger, ICemeteryRepository cemeteryRepository)
+    public CemeteryController(ILogger<CemeteryController> logger, ICemeteryService cemeteryService)
     {
         _logger = logger;
-        this.cemeteryRepository = cemeteryRepository;
+        this.cemeteryService = cemeteryService;
     }
 
     [HttpGet(Name = "GetCemeteries")]
-    public IList<CemeteryModel> Get()
+    public async Task<IList<CemeteryViewModel>> Get(CancellationToken cancellationToken)
     {
-        return cemeteryRepository.Get().Take(100).ToList();
+        return (await cemeteryService.GetAll(cancellationToken)).Take(100).ToList();
     }
 }

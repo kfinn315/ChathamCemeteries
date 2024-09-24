@@ -1,20 +1,17 @@
-using Project.Core.Interfaces;
-using Project.Core.Entities;
 using Project.Infrastructure.Data;
+using Project.Core.Interfaces.IRepositories;
+using Project.Core.Entities.General;
 
 namespace Project.Infrastructure.Repositories;
 
-public class CemeteryRepository : ICemeteryRepository
+public class CemeteryRepository : BaseRepository<Cemetery>, ICemeteryRepository
 {
-    private readonly CemeteriesContext cemeteriesContext;
-
-    public CemeteryRepository(CemeteriesContext cemeteriesContext)
+    public CemeteryRepository(ApplicationDbContext dbContext) : base(dbContext)
     {
-        this.cemeteriesContext = cemeteriesContext;
     }
 
-    public IQueryable<CemeteryModel> Get()
+    public IQueryable<Cemetery> Get()
     {
-        return this.cemeteriesContext.Set<CemeteryModel>().AsQueryable();
+        return _dbContext.Set<Cemetery>().AsQueryable();
     }
 }

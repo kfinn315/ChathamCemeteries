@@ -1,20 +1,19 @@
-using Project.Core.Interfaces;
-using Project.Core.Entities;
 using Project.Infrastructure.Data;
+using Project.Core.Interfaces.IRepositories;
+using System.Linq.Expressions;
+using Project.Core.Entities.General;
 
 namespace Project.Infrastructure.Repositories;
 
-public class GraveRepository : IGraveRepository
+public class GraveRepository : BaseRepository<Grave>, IGraveRepository
 {
-    private readonly CemeteriesContext cemeteriesContext;
 
-    public GraveRepository(CemeteriesContext cemeteriesContext)
+    public GraveRepository(ApplicationDbContext dbContext) : base(dbContext)
     {
-        this.cemeteriesContext = cemeteriesContext;
     }
 
-    public IQueryable<GraveModel> Get()
+    public IQueryable<Grave> Get()
     {
-        return cemeteriesContext.Set<GraveModel>().AsQueryable();
+        throw new NotImplementedException();
     }
 }

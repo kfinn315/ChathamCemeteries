@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace Project.Core.Entities;
+namespace Project.Core.Entities.Business;
 
-public partial class DateModel
+public class DateModel
 {
     [JsonPropertyName("year")]
     public int? Year { get; set; }
