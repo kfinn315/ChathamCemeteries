@@ -12,8 +12,4 @@ public class GraveRepository : BaseRepository<Grave>, IGraveRepository
     {
     }
 
-    public IQueryable<Grave> Get()
-    {
-        throw new NotImplementedException();
-    }
 }

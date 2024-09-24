@@ -16,8 +16,5 @@ namespace Project.Core.Exceptions
         {
         }
 
-        // protected NotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
-        // {
-        // }
     }
 }

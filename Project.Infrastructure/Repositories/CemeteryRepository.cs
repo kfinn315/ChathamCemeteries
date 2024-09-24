@@ -9,9 +9,4 @@ public class CemeteryRepository : BaseRepository<Cemetery>, ICemeteryRepository
     public CemeteryRepository(ApplicationDbContext dbContext) : base(dbContext)
     {
     }
-
-    public IQueryable<Cemetery> Get()
-    {
-        return _dbContext.Set<Cemetery>().AsQueryable();
-    }
 }

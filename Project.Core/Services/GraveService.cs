@@ -15,14 +15,4 @@ public class GraveService : BaseService<Grave, GraveViewModel>, IGraveService
         IGraveRepository repository) : base(viewModelMapper, repository)
     {
     }
-
-    // Task<IEnumerable<GraveViewModel>> IBaseService<GraveViewModel>.GetAll(CancellationToken cancellationToken)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-    // Task<GraveViewModel> IBaseService<GraveViewModel>.GetById<Tid>(Tid id, CancellationToken cancellationToken)
-    // {
-    //     throw new NotImplementedException();
-    // }
 }
