@@ -17,30 +17,11 @@ namespace Project.API.Extensions
             {
                 cfg.CreateMap<Cemetery, CemeteryViewModel>();
                 cfg.CreateMap<Grave, GraveViewModel>();
-                // cfg.CreateMap<ProductCreateViewModel, Product>();
-                // cfg.CreateMap<ProductUpdateViewModel, Product>();
-
-                // cfg.CreateMap<Role, RoleViewModel>();
-                // cfg.CreateMap<RoleCreateViewModel, Role>();
-                // cfg.CreateMap<RoleUpdateViewModel, Role>();
-
-                // cfg.CreateMap<User, UserViewModel>();
-                // cfg.CreateMap<UserViewModel, User>();
-
             }).CreateMapper());
 
             // Register the IMapperService implementation with your dependency injection container
             services.AddSingleton<IBaseMapper<Cemetery, CemeteryViewModel>, BaseMapper<Cemetery, CemeteryViewModel>>();
             services.AddSingleton<IBaseMapper<Grave, GraveViewModel>, BaseMapper<Grave, GraveViewModel>>();
-            // services.AddSingleton<IBaseMapper<ProductCreateViewModel, Product>, BaseMapper<ProductCreateViewModel, Product>>();
-            // services.AddSingleton<IBaseMapper<ProductUpdateViewModel, Product>, BaseMapper<ProductUpdateViewModel, Product>>();
-
-            // services.AddSingleton<IBaseMapper<Role, RoleViewModel>, BaseMapper<Role, RoleViewModel>>();
-            // services.AddSingleton<IBaseMapper<RoleCreateViewModel, Role>, BaseMapper<RoleCreateViewModel, Role>>();
-            // services.AddSingleton<IBaseMapper<RoleUpdateViewModel, Role>, BaseMapper<RoleUpdateViewModel, Role>>();
-
-            // services.AddSingleton<IBaseMapper<User, UserViewModel>, BaseMapper<User, UserViewModel>>();
-            // services.AddSingleton<IBaseMapper<UserViewModel, User>, BaseMapper<UserViewModel, User>>();
 
             #endregion
 
