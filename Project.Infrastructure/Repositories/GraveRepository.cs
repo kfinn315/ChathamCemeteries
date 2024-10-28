@@ -2,6 +2,7 @@ using Project.Infrastructure.Data;
 using Project.Core.Interfaces.IRepositories;
 using System.Linq.Expressions;
 using Project.Core.Entities.General;
+using Microsoft.EntityFrameworkCore;
 
 namespace Project.Infrastructure.Repositories;
 
@@ -12,4 +13,8 @@ public class GraveRepository : BaseRepository<Grave>, IGraveRepository
     {
     }
 
+    public async Task<IEnumerable<Grave>> GetCemetery(int cemeteryId, CancellationToken cancellationToken)
+    {
+        return await this._dbContext.Graves.Where(x => x.CemeteryId == cemeteryId).ToListAsync(cancellationToken);
+    }
 }

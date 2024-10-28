@@ -10,9 +10,19 @@ namespace Project.Core.Services;
 
 public class GraveService : BaseService<Grave, GraveViewModel>, IGraveService
 {
+    private readonly IBaseMapper<Grave, GraveViewModel> viewModelMapper;
+    private readonly IGraveRepository repository;
+
     public GraveService(
-        IBaseMapper<Grave, GraveViewModel> viewModelMapper, 
+        IBaseMapper<Grave, GraveViewModel> viewModelMapper,
         IGraveRepository repository) : base(viewModelMapper, repository)
     {
+        this.viewModelMapper = viewModelMapper;
+        this.repository = repository;
+    }
+
+    public async Task<IEnumerable<GraveViewModel>> GetCemetery(int cemeteryId, CancellationToken cancellationToken)
+    {
+        return viewModelMapper.MapList(await repository.GetCemetery(cemeteryId, cancellationToken));
     }
 }
