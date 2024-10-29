@@ -38,14 +38,6 @@ public partial class ApplicationDbContext : DbContext
             entity.ToTable("graves");
             entity.Property(e => e.Id).HasColumnName("_rowid_");
             entity.Property(e => e.CemeteryId).HasColumnName("CemeteryID");
-            entity.OwnsOne(grave => grave.Death, ownedNavigationBuilder =>
-            {
-                ownedNavigationBuilder.ToJson();
-            });
-            entity.OwnsOne(grave => grave.Birth, ownedNavigationBuilder =>
-            {
-                ownedNavigationBuilder.ToJson();
-            });
         });
 
         OnModelCreatingPartial(modelBuilder);

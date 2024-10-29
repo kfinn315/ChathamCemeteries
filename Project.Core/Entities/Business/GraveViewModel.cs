@@ -7,9 +7,7 @@ public class GraveViewModel
 
     public string? Name { get; set; }
 
-    public DateModel? Birth { get; set; }
-
     public int? BirthYear { get; set; }
 
-    public DateModel? Death { get; set; }
+    public int? DeathYear { get; set; }
 }
