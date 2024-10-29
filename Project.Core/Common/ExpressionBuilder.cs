@@ -1,5 +1,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
+using AutoMapper.Execution;
+using AutoMapper.Internal;
 using Project.Core.Exceptions;
 
 namespace Project.Core.Common
@@ -47,7 +49,13 @@ namespace Project.Core.Common
             switch (filter.Comparison)
             {
                 case Comparison.Equal:
-                    return Expression.Equal(member, constant);
+                    if (!member.Type.IsNullableType())
+                        return Expression.Equal(member, constant);
+                    else
+                    {
+                        var memberAsInt = Expression.Convert(member, typeof(int));
+                        return Expression.Equal(memberAsInt, constant);
+                    }
                 case Comparison.GreaterThan:
                     return Expression.GreaterThan(member, constant);
                 case Comparison.GreaterThanOrEqual:

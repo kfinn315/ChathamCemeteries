@@ -150,8 +150,25 @@ public class GraveController : ControllerBase
                         PropertyName="Name",
                         Value=search,
                         Comparison=Comparison.Contains
+                    }});
+                if (int.TryParse(search, out int searchInt))
+                {
+                    filters.AddRange(new[] {
+                    new ExpressionFilter
+                    {
+                        PropertyName = "DeathYear",
+                        Value = searchInt,
+                        Comparison = Comparison.Equal
+                    },
+                    new ExpressionFilter
+                    {
+                        PropertyName = "BirthYear",
+                        Value = searchInt,
+                        Comparison = Comparison.Equal
                     }
-            });
+                    }
+                    );
+                }
             }
 
             var result = await graveService.GetPaginatedData(pageNumberValue, pageSizeValue, filters, sortBy, sortOrder, cancellationToken);
