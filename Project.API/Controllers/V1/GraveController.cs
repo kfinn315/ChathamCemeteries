@@ -115,7 +115,7 @@ public class GraveController : ControllerBase
                 });
             }
 
-            _logger.LogError(ex, "An error occurred while retrieving grave");
+            _logger.LogError(ex, "An error occurred while retrieving graves");
 
             var errorResponse = new ResponseViewModel<IEnumerable<GraveViewModel>>
             {
