@@ -90,48 +90,6 @@ public class GraveController : ControllerBase
         }
     }
 
-    [HttpGet("cid={cemeteryId}")]
-    public async Task<IActionResult> GetCemetery(int cemeteryId, CancellationToken cancellationToken)
-    {
-        var graves = await graveService.GetCemetery(cemeteryId, cancellationToken);
-
-        try
-        {
-            return Ok(new ResponseViewModel<IEnumerable<GraveViewModel>> { Data = graves, Success = true, Message = "Graves retrieved successfully" });
-        }
-        catch (Exception ex)
-        {
-            if (ex.Message == "No data found")
-            {
-                return StatusCode(StatusCodes.Status404NotFound, new ResponseViewModel<GraveViewModel>
-                {
-                    Success = false,
-                    Message = "Graves not found",
-                    Error = new ErrorViewModel
-                    {
-                        Code = "NOT_FOUND",
-                        Message = "Graves not found"
-                    }
-                });
-            }
-
-            _logger.LogError(ex, "An error occurred while retrieving graves");
-
-            var errorResponse = new ResponseViewModel<IEnumerable<GraveViewModel>>
-            {
-                Success = false,
-                Message = "Error retrieving graves",
-                Error = new ErrorViewModel
-                {
-                    Code = "ERROR_CODE",
-                    Message = ex.Message
-                }
-            };
-
-            return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
-        }
-    }
-
     [HttpGet("paginated-data")]
     public async Task<IActionResult> Get(int? pageNumber, int? pageSize, string? search, string? sortBy, string? sortOrder, CancellationToken cancellationToken)
     {

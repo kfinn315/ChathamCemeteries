@@ -11,4 +11,6 @@ public class CemeteryViewModel
     public string? Location { get; set; }
 
     public int? Restricted { get; set; }
+
+    public IEnumerable<GraveViewModel>? Graves { get; set; }
 }

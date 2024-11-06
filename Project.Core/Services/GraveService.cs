@@ -20,9 +20,4 @@ public class GraveService : BaseService<Grave, GraveViewModel>, IGraveService
         this.viewModelMapper = viewModelMapper;
         this.repository = repository;
     }
-
-    public async Task<IEnumerable<GraveViewModel>> GetCemetery(int cemeteryId, CancellationToken cancellationToken)
-    {
-        return viewModelMapper.MapList(await repository.GetCemetery(cemeteryId, cancellationToken));
-    }
 }

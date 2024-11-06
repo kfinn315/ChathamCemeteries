@@ -4,5 +4,7 @@ namespace Project.Core.Interfaces.IServices
 {
     public interface ICemeteryService : IBaseService<CemeteryViewModel>
     {
+        public Task<CemeteryViewModel> GetByIdWithGraves(int cemeteryId, CancellationToken cancellationToken);
+        public Task<NodeViewModel> GetDecadeSummary(int cemeteryId, CancellationToken cancellationToken);
     }
 }

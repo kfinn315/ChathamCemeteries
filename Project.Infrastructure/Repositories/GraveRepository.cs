@@ -9,12 +9,11 @@ namespace Project.Infrastructure.Repositories;
 public class GraveRepository : BaseRepository<Grave>, IGraveRepository
 {
 
-    public GraveRepository(ApplicationDbContext dbContext) : base(dbContext)
-    {
-    }
+    public GraveRepository(ApplicationDbContext dbContext) : base(dbContext) { }
 
     public async Task<IEnumerable<Grave>> GetCemetery(int cemeteryId, CancellationToken cancellationToken)
     {
-        return await this._dbContext.Graves.Where(x => x.CemeteryId == cemeteryId).ToListAsync(cancellationToken);
+        return await this._dbContext.Graves.Where(x => x.CemeteryId == cemeteryId) .ToListAsync(cancellationToken);
     }
+    
 }

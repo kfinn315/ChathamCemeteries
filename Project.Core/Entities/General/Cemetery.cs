@@ -10,4 +10,6 @@ public partial class Cemetery : Base<int>
     public string? Location { get; set; }
 
     public int? Restricted { get; set; }
+
+    public virtual ICollection<Grave>? Graves { get; set; }
 }

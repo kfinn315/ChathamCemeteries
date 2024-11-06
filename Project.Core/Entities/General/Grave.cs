@@ -9,4 +9,6 @@ public partial class Grave : Base<int>
     public int? BirthYear { get; set; }
 
     public int? DeathYear { get; set; }
+
+    public virtual Cemetery? Cemetery { get; set; }
 }
