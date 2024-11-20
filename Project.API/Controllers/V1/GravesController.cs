@@ -9,12 +9,12 @@ namespace Project.API.Controllers;
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
 [ApiVersion("1.0")]
-public class GraveController : ControllerBase
+public class GravesController : ControllerBase
 {
-    private readonly ILogger<GraveController> _logger;
+    private readonly ILogger<GravesController> _logger;
     private readonly IGraveService graveService;
 
-    public GraveController(ILogger<GraveController> logger, IGraveService graveService)
+    public GravesController(ILogger<GravesController> logger, IGraveService graveService)
     {
         _logger = logger;
         this.graveService = graveService;

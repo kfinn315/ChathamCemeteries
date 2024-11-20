@@ -9,12 +9,12 @@ namespace Project.API.Controllers;
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
 [ApiVersion("1.0")]
-public class CemeteryController : ControllerBase
+public class CemeteriesController : ControllerBase
 {
-    private readonly ILogger<CemeteryController> _logger;
+    private readonly ILogger<CemeteriesController> _logger;
     private readonly ICemeteryService cemeteryService;
 
-    public CemeteryController(ILogger<CemeteryController> logger, ICemeteryService cemeteryService)
+    public CemeteriesController(ILogger<CemeteriesController> logger, ICemeteryService cemeteryService)
     {
         _logger = logger;
         this.cemeteryService = cemeteryService;
