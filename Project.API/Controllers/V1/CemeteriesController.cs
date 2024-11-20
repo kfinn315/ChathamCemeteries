@@ -120,7 +120,51 @@ public class CemeteriesController : ControllerBase
         }
     }
 
-    [HttpGet("summary")]
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(int id, CancellationToken cancellationToken)
+    {
+        try
+        {
+            CemeteryViewModel? cemetery = await cemeteryService.GetById(id, cancellationToken);
+            var response = new ResponseViewModel<CemeteryViewModel>() { Success = true, Message = "Cemetery retrieved successfully", Data = cemetery };
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            if (ex.Message == "No data found")
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new ResponseViewModel<CemeteryViewModel>
+                {
+                    Success = false,
+                    Message = "Cemetery not found",
+                    Error = new ErrorViewModel
+                    {
+                        Code = "NOT_FOUND",
+                        Message = "Cemetery not found"
+                    }
+                });
+            }
+
+            _logger.LogError(ex, $"An error occurred while retrieving the cemetery");
+
+            var errorResponse = new ResponseViewModel<CemeteryViewModel>
+            {
+                Success = false,
+                Message = "Error retrieving cemetery",
+                Error = new ErrorViewModel
+                {
+                    Code = "ERROR_CODE",
+                    Message = ex.Message
+                }
+            };
+
+            return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+        }
+    }
+
+
+    [HttpGet("{id}/summary")]
     public async Task<IActionResult> GetSummary(int id, CancellationToken cancellationToken)
     {
         try
@@ -161,21 +205,13 @@ public class CemeteriesController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
         }
     }
-
-    [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id, bool includeGraves, CancellationToken cancellationToken)
+    
+    [HttpGet("{id}/graves")]
+    public async Task<IActionResult> GetGraves(int id, CancellationToken cancellationToken)
     {
         try
         {
-            CemeteryViewModel? cemetery;
-            if (includeGraves)
-            {
-                cemetery = await cemeteryService.GetByIdWithGraves(id, cancellationToken);
-            }
-            else
-            {
-                cemetery = await cemeteryService.GetById(id, cancellationToken);
-            }
+            CemeteryViewModel? cemetery = await cemeteryService.GetByIdWithGraves(id, cancellationToken);
             var response = new ResponseViewModel<CemeteryViewModel>() { Success = true, Message = "Cemetery retrieved successfully", Data = cemetery };
             return Ok(response);
         }
