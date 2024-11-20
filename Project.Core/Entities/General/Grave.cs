@@ -4,7 +4,9 @@ public partial class Grave : Base<int>
 {
     public int? CemeteryId { get; set; }
 
-    public string? Name { get; set; }
+    public string? LastName { get; set; }
+
+    public string? FirstName { get; set; }
 
     public int? BirthYear { get; set; }
 
