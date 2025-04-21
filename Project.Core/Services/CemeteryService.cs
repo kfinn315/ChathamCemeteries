@@ -61,4 +61,20 @@ public class CemeteryService : BaseService<Cemetery, CemeteryViewModel>, ICemete
             return new NodeViewModel { Id = x.Key ?? -1, Name = "Age Range " + x.Key.ToString() ?? "Unknown", Size = x?.Count() ?? 0 };
         }).ToArray();
     }
+
+    public async Task<IEnumerable<NameViewModel>> GetNameSummary(int cemeteryID, CancellationToken cancellationToken)
+    {
+        var cemetery = await GetByIdWithGraves(cemeteryID, cancellationToken);
+        if (cemetery is null)
+        {
+            throw new Exception("Cemetery is null");
+        }
+        var graves = cemetery.Graves;
+        if (graves is null)
+        {
+            throw new Exception("Graves are null");
+        }
+
+        return graves.GroupBy(x => x.LastName).Select(x => new NameViewModel { Name = x.Key, Graves = x.ToArray() });
+    }
 }

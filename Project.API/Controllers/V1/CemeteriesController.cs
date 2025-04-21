@@ -205,7 +205,7 @@ public class CemeteriesController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
         }
     }
-    
+
     [HttpGet("{id}/graves")]
     public async Task<IActionResult> GetGraves(int id, CancellationToken cancellationToken)
     {
@@ -237,6 +237,49 @@ public class CemeteriesController : ControllerBase
             {
                 Success = false,
                 Message = "Error retrieving cemetery",
+                Error = new ErrorViewModel
+                {
+                    Code = "ERROR_CODE",
+                    Message = ex.Message
+                }
+            };
+
+            return StatusCode(StatusCodes.Status500InternalServerError, errorResponse);
+        }
+    }
+
+    [HttpGet("{id}/names")]
+    public async Task<IActionResult> GetNames(int id, CancellationToken cancellationToken)
+    {
+
+        try
+        {
+            var namesSummary = await cemeteryService.GetNameSummary(id, cancellationToken);
+            var response = new ResponseViewModel<IEnumerable<NameViewModel>>() { Success = true, Message = "Names retrieved successfully", Data = namesSummary };
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            if (ex.Message == "No data found")
+            {
+                return StatusCode(StatusCodes.Status404NotFound, new ResponseViewModel<IEnumerable<NameViewModel>>
+                {
+                    Success = false,
+                    Message = "Cemetery not found",
+                    Error = new ErrorViewModel
+                    {
+                        Code = "NOT_FOUND",
+                        Message = "Cemetery not found"
+                    }
+                });
+            }
+
+            _logger.LogError(ex, $"An error occurred while retrieving the cemetery names");
+
+            var errorResponse = new ResponseViewModel<IEnumerable<NameViewModel>>
+            {
+                Success = false,
+                Message = "Error retrieving cemetery names",
                 Error = new ErrorViewModel
                 {
                     Code = "ERROR_CODE",
