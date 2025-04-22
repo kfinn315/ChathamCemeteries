@@ -27,23 +27,23 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("PrimaryDbConnection")));
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:5173");
-                      });
-});
-
 
 var app = builder.Build();
-app.UseCors(MyAllowSpecificOrigins);
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
+    var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(name: MyAllowSpecificOrigins,
+                          policy =>
+                          {
+                              policy.WithOrigins("http://localhost:5173");
+                          });
+    });
+    app.UseCors(MyAllowSpecificOrigins);
+
+    // Configure the HTTP request pipeline.
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
@@ -60,7 +60,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
