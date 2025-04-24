@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Project.Infrastructure.Data;
 using Asp.Versioning;
 using Project.API.Extensions;
+using Project.API;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,25 +25,26 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("PrimaryDbConnection")));
+// builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("PrimaryDbConnection")));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Helpers.GetRDSConnectionString(Environment.GetEnvironmentVariables())));
 
+
+// var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy(name: MyAllowSpecificOrigins,
+//                       policy =>
+//                       {
+//                           policy.WithOrigins("http://localhost:5173");
+//                       });
+// });
 
 var app = builder.Build();
 
+//     app.UseCors(MyAllowSpecificOrigins);
+
 if (app.Environment.IsDevelopment())
 {
-    var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-    builder.Services.AddCors(options =>
-    {
-        options.AddPolicy(name: MyAllowSpecificOrigins,
-                          policy =>
-                          {
-                              policy.WithOrigins("http://localhost:5173");
-                          });
-    });
-    app.UseCors(MyAllowSpecificOrigins);
-
     // Configure the HTTP request pipeline.
     app.UseSwagger();
     app.UseSwaggerUI(options =>

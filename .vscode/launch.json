@@ -8,13 +8,13 @@
             "name": "C#: ChathamCemeteries Debug",
             "type": "dotnet",
             "request": "launch",
-            "projectPath": "${workspaceFolder}/Project.API/Project.API.csproj"
+            "projectPath": "${workspaceFolder}/Project.API/Project.API.csproj",
         },
         {
             "name": ".NET Core Launch (web)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "dotnet: build",
             "program": "${workspaceFolder}/Project.API/bin/Debug/net8.0/Project.API.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Project.API",
@@ -24,7 +24,12 @@
                 "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
             },
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "RDS_DB_NAME": "chatham-cem",
+                "RDS_USERNAME": "postgres",
+                "RDS_PASSWORD": "password",
+                "RDS_HOSTNAME": "localhost",
+                "RDS_PORT": "5432"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"

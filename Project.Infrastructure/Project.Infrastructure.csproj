@@ -19,7 +19,4 @@
     <ProjectReference Include="..\Project.Core\Project.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Database\cemeteries.db" CopyToOutputDirectory="PreserveNewest" />
-  </ItemGroup>
 </Project>
