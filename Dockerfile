@@ -20,4 +20,5 @@ COPY --from=build /publish /app
 WORKDIR /app
 
 ENV ASPNETCORE_URLS=http://+:80
-ENTRYPOINT ["./Project.API"]
+EXPOSE 80
+ENTRYPOINT ["dotnet", "./Project.API.dll"]
