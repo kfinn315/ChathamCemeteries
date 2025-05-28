@@ -1,0 +1,12 @@
+{
+    "AWSEBDockerrunVersion": 1,
+    "Image": {
+        "Name": "302263043639.dkr.ecr.us-east-2.amazonaws.com/chatham-cem:latest"
+    },
+    "Ports": [
+        {
+            "HostPort": 5000,
+            "ContainerPort": 80
+        }
+    ]
+}

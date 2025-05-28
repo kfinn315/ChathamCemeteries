@@ -464,3 +464,5 @@ Temporary Items
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+Project.API/site

@@ -22,3 +22,5 @@ coverage
 
 # Ignore awseb files.
 .elasticbeanstalk
+
+db/
